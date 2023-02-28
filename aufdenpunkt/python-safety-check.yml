@@ -1,0 +1,16 @@
+name: python-safety-check
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out master
+        uses: actions/checkout@v2
+
+      - name: Security vulnerabilities scan
+        uses: aufdenpunkt/python-safety-check@v2
+
+          
