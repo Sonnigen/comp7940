@@ -11,6 +11,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Security vulnerabilities scan
-        uses: aufdenpunkt/python-safety-check@v2
-
-          
+        uses: aufdenpunkt/python-safety-check@v2  
