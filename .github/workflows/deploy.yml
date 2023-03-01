@@ -7,13 +7,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
-          matrix:
-            node-version: [16.x]
+      matrix:
+        node-version: [16.x]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
       - name: Deploy
         env:
