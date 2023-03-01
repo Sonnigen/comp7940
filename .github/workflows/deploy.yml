@@ -17,5 +17,7 @@ jobs:
           HEROKU_APP_NAME: "comp7940long" # Rename this to the app of your Heroku app.
         run: git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git main
 
-      - name: Security vulnerabilities scan
-        uses: aufdenpunkt/python-safety-check@master
+      - name: Check Python code security
+        uses: aufdenpunkt/python-safety-check@v2
+        with:
+          path: './src'
