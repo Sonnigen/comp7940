@@ -147,8 +147,8 @@ def main() -> None:
     application = Application.builder().token(config['TELEGRAM']['ACCESS_TOKEN']).build()
 
     global redis1
-    redis1 = redis.Redis(host=(config['REDIS']['HOST']), password=(config['REDIS']['PASSWORD']), port=(config['REDIS']['REDISPORT']))
-
+    # redis1 = redis.Redis(host=(config['REDIS']['HOST']), password=(config['REDIS']['PASSWORD']), port=(config['REDIS']['REDISPORT']))
+    redis1 = redis.StrictRedis(host=(config['REDIS']['HOST']),port=(config['REDIS']['REDISPORT']), db=0, password=(config['REDIS']['PASSWORD']), ssl=True)
 
     # on different commands - answer in Telegram
     application.add_handler(CommandHandler("start", start))
