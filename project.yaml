@@ -1,0 +1,17 @@
+version: '3'
+services:
+  chatbot:
+    image: 7940projectimage
+    environment:
+      - ACCESS_TOKEN=5881114142:AAG2uG1SsE81QUj7GRGKI9I20-eUAZRNbT4
+      - REDIS_HOST=redis-17746.c289.us-west-1-2.ec2.cloud.redislabs.com
+      - REDIS_PASSWORD=zOXxtp1pcEw6eXiKG37D2faUY7wwaf2T
+      - REDIS_PORT=17746
+    command: python chatbot.py
+    depends_on:
+      - redis
+  redis:
+    image: redis
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    command: ["/usr/local/etc/redis/redis.conf"]
