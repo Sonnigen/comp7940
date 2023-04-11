@@ -21,6 +21,7 @@ import os
 import redis
 import random
 import requests
+import openai
 
 import sys
 sys.path.append('/home/sunny/.local/lib/python3.10/site-packages')
@@ -135,9 +136,17 @@ async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send a message when the command /hello Kevin is issued."""
     await update.message.reply_text("Good day, " + context.args[0] + "!")
 
+async def openaiChat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    "chat with gpt"
+    content = update.message.text
+    completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{"role": "user", "content": content}])
+    await update.message.reply_text(completion.choices[0].message.content)
+
+
 def main() -> None:
     """Start the bot."""
     
+    openai.api_key = "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"
     config = configparser.ConfigParser()
     path = '/'.join((os.path.abspath(__file__).replace('\\', '/')).split('/')[:-1])
     config.read(os.path.join(path, 'config.ini'))
@@ -160,7 +169,7 @@ def main() -> None:
     application.add_handler(CommandHandler("recommend", recommend_movie))
 
     # on non command i.e message - echo the message on Telegram
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, openaiChat))
 
     # Run the bot until the user presses Ctrl-C
     application.run_polling()
